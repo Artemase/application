@@ -52,14 +52,14 @@ class ApplicationController extends Controller
     /**
      * Показывает список всех заявок от всех пользователей.
      *
-     * @status - enum('active',')
-     * @dateOrder - enum('DESC', 'ASC')
+     * status - enum('active',')
+     * dateOrder - enum('DESC', 'ASC')
      * 
-     * @return string
+     * @return json
      */
     public function actionShow($status = null, $dateOrder = null)
     {
-        header("Access-Control-Allow-Origin: http://www.application.com);
+        header("Access-Control-Allow-Origin: http://www.application.com");
         $dataProvider = Application::find();
         if($status){
             $dataProvider->andWhere(['status' => $status]);
@@ -68,20 +68,26 @@ class ApplicationController extends Controller
         if($dateOrder){
             $dataProvider->orderBy(['created_at'=> (($dateOrder === 'ASC') ? SORT_ASC : SORT_DESC)]);
         }
+
         foreach($dataProvider->all() as $application){
             $result[] = $application;
         }
+
         return Json::encode($result);
     }
 
     /**
      * Создает новую заявку от польователя.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
+     * 
+     * name - string (Имя пользователя)
+     * email - string (e-mail пользователя)
+     * message - string (Сообщение к заявке пользователя)
+     * 
+     * @return void
      */
     public function actionCreate($name, $email, $message)
     {
-        header("Access-Control-Allow-Origin: http://www.application.com);
+        header("Access-Control-Allow-Origin: http://www.application.com");
         $model = new Application();
 
         $model->name = $name;
