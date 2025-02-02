@@ -26,7 +26,12 @@ return [
             'basePath' => __DIR__ . '/../web/assets',
         ],
         'urlManager' => [
-            'showScriptName' => true,
+            'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
+            'showScriptName' => false,
+            'rules' => [
+                '' => 'web/index',
+                'GET,HEAD users' => 'user/index',
         ],
         'user' => [
             'identityClass' => 'app\models\User',
@@ -44,3 +49,5 @@ return [
     ],
     'params' => $params,
 ];
+
+?>
