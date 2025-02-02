@@ -107,9 +107,7 @@ class ApplicationController extends Controller
      */
     public function actionAnswer($id, $answer)
     {
-        
-        header("Access-Control-Allow-Origin: http://www.application.com);
-        \Yii::$app->controller->enableCsrfValidation = false;
+        header("Access-Control-Allow-Origin: http://www.application.com");
         $model = Application::find()->andWhere(['id' => $id])->one();
 
         $model->comment = $answer;
