@@ -59,7 +59,7 @@ class ApplicationController extends Controller
      */
     public function actionShow($status = null, $dateOrder = null)
     {
-        
+        header("Access-Control-Allow-Origin: http://www.application.com);
         $dataProvider = Application::find();
         if($status){
             $dataProvider->andWhere(['status' => $status]);
@@ -81,6 +81,7 @@ class ApplicationController extends Controller
      */
     public function actionCreate($name, $email, $message)
     {
+        header("Access-Control-Allow-Origin: http://www.application.com);
         $model = new Application();
 
         $model->name = $name;
@@ -100,6 +101,8 @@ class ApplicationController extends Controller
      */
     public function actionAnswer($id, $answer)
     {
+        
+        header("Access-Control-Allow-Origin: http://www.application.com);
         \Yii::$app->controller->enableCsrfValidation = false;
         $model = Application::find()->andWhere(['id' => $id])->one();
 
@@ -112,7 +115,7 @@ class ApplicationController extends Controller
         ->setFrom('antipoff.artyom@gmail.com')
         ->setTo($model->email)
         ->setSubject('Ответ на вашу заявку')
-        ->setHtmlBody($answer)
+        ->setTextBody($answer)
         ->send();
     }
 
